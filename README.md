@@ -177,7 +177,7 @@ python GenerateQRcode.py
 
 ---
 
-## 📸 Screenshots (Optional)
+## 📸 Output Screenshot 
 
 
 <img width="550" height="550" alt="image" src="https://github.com/user-attachments/assets/8a90b6a3-c52d-44f2-bd8e-ba9ce17b94ae" />
