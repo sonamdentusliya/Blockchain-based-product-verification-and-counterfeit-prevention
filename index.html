@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain based Product Verification and Counterfeit Prevention</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Login/Signup Screen -->
+        <div id="authScreen" class="auth-screen" style="display: none;">
+            <button class="auth-back-btn" onclick="goBackToHome()" title="Back to Home"><i class="fas fa-arrow-left"></i></button>
+            <div class="auth-container">
+                <div class="auth-header">
+                    <div class="auth-logo-circle">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h1>Product Verification</h1>
+                    <p>Manufacturer Authentication</p>
+                </div>
+
+                <!-- Login Form -->
+                <div id="loginForm" class="auth-form" style="display: block;">
+                    <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+                    
+                    <div class="form-group">
+                        <label for="loginEmail"><i class="fas fa-envelope"></i> Email:</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword"><i class="fas fa-lock"></i> Password:</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+
+                    <button class="auth-btn" onclick="manufacturerLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    
+                    <p class="auth-toggle">
+                        Don't have an account? 
+                        <span onclick="toggleAuthForm()" class="link">Create Account</span>
+                    </p>
+
+                    <div id="loginOutput" class="auth-output"></div>
+                </div>
+
+                <!-- Signup Form -->
+                <div id="signupForm" class="auth-form" style="display: none;">
+                    <h2><i class="fas fa-user-plus"></i> Create Account</h2>
+                    
+                    <div class="form-group">
+                        <label for="signupName"><i class="fas fa-user"></i> Full Name:</label>
+                        <input type="text" id="signupName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupEmail"><i class="fas fa-envelope"></i> Email:</label>
+                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupPassword"><i class="fas fa-lock"></i> Password:</label>
+                        <input type="password" id="signupPassword" placeholder="Enter password (min 8 characters)" required>
+                        <small class="password-hint">Must contain: uppercase, lowercase, number, and special character</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupConfirmPassword"><i class="fas fa-lock"></i> Confirm Password:</label>
+                        <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required>
+                    </div>
+
+                    <div id="passwordStrength" class="password-strength" style="display: none;">
+                        <div class="strength-bar">
+                            <div id="strengthIndicator" class="strength-fill"></div>
+                        </div>
+                        <small id="strengthText">Password strength: Weak</small>
+                    </div>
+
+                    <button class="auth-btn" onclick="manufacturerSignup()"><i class="fas fa-user-plus"></i> Create Account</button>
+                    
+                    <p class="auth-toggle">
+                        Already have an account? 
+                        <span onclick="toggleAuthForm()" class="link">Login</span>
+                    </p>
+
+                    <div id="signupOutput" class="auth-output"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Screen -->
+        <div id="homeScreen" class="home-screen" style="display: block;">
+            <div class="logo-section">
+                <div class="logo-circle">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <h1>Product Verification</h1>
+                <p class="tagline">Authentic Products, Transparent Verification</p>
+            </div>
+
+            <div class="main-content home-content">
+                <p class="intro-text">Select your role to get started</p>
+                
+                <div class="card-container">
+                    <!-- Manufacturer Card -->
+                    <div class="role-card" onclick="startAsManufacturer()">
+                        <div class="card-icon manufacturer-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <h2>I'm a Manufacturer</h2>
+                        <p>Register and manage your authentic products with blockchain verification</p>
+                        <span class="card-arrow">→</span>
+                    </div>
+
+                    <!-- Customer Card -->
+                    <div class="role-card" onclick="startAsCustomer()">
+                        <div class="card-icon customer-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h2>I'm a Customer</h2>
+                        <p>Verify product authenticity by scanning QR codes and checking blockchain records</p>
+                        <span class="card-arrow">→</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manufacturer Section -->
+        <div id="manufacturerSection" class="section" style="display: none;">
+            <div class="app-header">
+                <button class="go-back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i> Back</button>
+                <h1>Manufacturer Dashboard</h1>
+                <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+
+            <div class="main-content">
+                <div class="section-header">
+                    <h2>Product Management</h2>
+                </div>
+
+                <div class="form-group">
+                    <label for="productId"><i class="fas fa-barcode"></i> Product ID:</label>
+                    <input type="text" id="productId" placeholder="Enter Product ID" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="productName"><i class="fas fa-box"></i> Product Name:</label>
+                    <input type="text" id="productName" placeholder="Enter Product Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="userName"><i class="fas fa-building"></i> Company/User Details:</label>
+                    <input type="text" id="userName" placeholder="Enter Company/User Details" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address"><i class="fas fa-map-marker-alt"></i> Address Details:</label>
+                    <input type="text" id="address" placeholder="Enter Address Details" required>
+                </div>
+
+                <div class="button-container">
+                    <button class="submit-btn" onclick="saveProductStep1()"><i class="fas fa-save"></i> Save Product</button>
+                    <button class="submit-btn" onclick="manufacturerRetrieveProduct()"><i class="fas fa-search"></i> Retrieve Data</button>
+                    <button class="submit-btn" onclick="openBarcodeUpload()"><i class="fas fa-qrcode"></i> Authenticate Scan</button>
+                </div>
+
+                <!-- Hidden file input for QR code selection -->
+                <input type="file" id="qrcodeFileInput" accept=".png,.jpg,.jpeg,.gif,.bmp" style="display: none;">
+
+                <div id="manufacturerOutput" class="output-box"></div>
+            </div>
+        </div>
+
+        <!-- Customer Section -->
+        <div id="customerSection" class="section" style="display: none;">
+            <div class="app-header">
+                <button class="go-back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i> Back</button>
+                <h1>Customer Verification</h1>
+            </div>
+
+            <div class="main-content">
+                <div class="section-header">
+                    <h2>Verify Product Authenticity</h2>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerProductId"><i class="fas fa-barcode"></i> Product ID:</label>
+                    <input type="text" id="customerProductId" placeholder="Enter Product ID" required>
+                </div>
+
+                <div class="button-container">
+                    <button class="submit-btn" onclick="customerSearchProduct()"><i class="fas fa-search"></i> Retrieve Data</button>
+                    <button class="submit-btn" onclick="customerAuthenticateClick()"><i class="fas fa-qrcode"></i> Authenticate Scan</button>
+                </div>
+
+                <div id="customerOutput" class="output-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
