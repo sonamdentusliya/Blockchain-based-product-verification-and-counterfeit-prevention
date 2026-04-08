@@ -8,6 +8,11 @@ from flask_cors import CORS
 import pickle
 import json
 import base64
+from flask import send_from_directory
+
+@app.route('/')
+def serve_frontend():
+    return send_from_directory('.', 'index.html')
 
 # Authentication helpers
 def hash_password(password):
@@ -349,3 +354,7 @@ def delete_all_users():
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
