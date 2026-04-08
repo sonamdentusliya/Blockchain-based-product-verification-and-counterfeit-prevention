@@ -3,7 +3,7 @@ from Blockchain import *
 from hashlib import sha256
 import os
 import datetime
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 import pickle
 import json
@@ -51,7 +51,7 @@ CORS(app)  # Enable CORS for all routes
 
 @app.route('/')
 def serve_frontend():
-    return send_from_directory('.', 'index.html')
+    return render_template('index.html')
 
 # Initialize blockchain
 blockchain = Blockchain()
