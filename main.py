@@ -3,16 +3,11 @@ from Blockchain import *
 from hashlib import sha256
 import os
 import datetime
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import pickle
 import json
 import base64
-from flask import send_from_directory
-
-@app.route('/')
-def serve_frontend():
-    return send_from_directory('.', 'index.html')
 
 # Authentication helpers
 def hash_password(password):
@@ -53,6 +48,10 @@ def validate_password_strength(password):
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
+@app.route('/')
+def serve_frontend():
+    return send_from_directory('.', 'index.html')
 
 # Initialize blockchain
 blockchain = Blockchain()
@@ -351,10 +350,6 @@ def delete_all_users():
         }), 200
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
-
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)
